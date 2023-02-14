@@ -1,5 +1,6 @@
 package com.main.first;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -26,13 +27,19 @@ public class MainActivity extends AppCompatActivity {
         whats_your_name = findViewById(R.id.tv_whats_your_name);
         my_name = findViewById(R.id.et_my_name);
 
+
+
         validate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String our_name = my_name.getText().toString();
 
                 if(our_name.equals("Viktors")){
-                    Toast.makeText(getApplicationContext(),"Correct name",Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), WallpaperActivity.class);
+                    intent.putExtra("NAME",our_name);
+
+                    startActivity(intent);
+
                 }else{
                     Toast.makeText(getApplicationContext(),"Incorrect name",Toast.LENGTH_SHORT).show();
                 }
