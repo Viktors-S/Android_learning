@@ -13,7 +13,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:id="@+id/iv_bigpicture"
-        android:src="@drawable/ic_launcher_background"/>
+        android:src="@drawable/pic2"/>
 
     <HorizontalScrollView
         android:layout_width="match_parent"
