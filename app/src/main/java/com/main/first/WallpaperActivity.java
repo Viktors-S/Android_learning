@@ -1,6 +1,9 @@
 package com.main.first;
 
+import android.app.WallpaperManager;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +11,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +25,8 @@ public class WallpaperActivity extends AppCompatActivity {
     LinearLayout linear_layout;
     TextView text_view;
     View.OnClickListener changeWallpaperListener, openDialogListener;
+
+    int to_phone;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +45,16 @@ public class WallpaperActivity extends AppCompatActivity {
         changeWallpaperListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                InputStream is = getResources().openRawResource(to_phone);
+                Bitmap pic = BitmapFactory.decodeStream(is);
 
+                WallpaperManager myWallpaper = WallpaperManager.getInstance(getApplicationContext());
+
+                try {
+                    myWallpaper.setBitmap(pic);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         };
 
@@ -46,7 +63,14 @@ public class WallpaperActivity extends AppCompatActivity {
         openDialogListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(new BottomSheetDialog.OnCalculationListener() {
+                    @Override
+                    public void onCalculationClicked(String clicked) {
+                        text_view.setText(clicked);
+                    }
+                });
 
+                bottomSheetDialog.show(getSupportFragmentManager(),"TAG");
             }
         };
 
@@ -74,6 +98,8 @@ public class WallpaperActivity extends AppCompatActivity {
                     String b = "pic"+Integer.toString(ide);
                     int id = getResources().getIdentifier(b,"drawable",getPackageName());
                     big_picture.setImageResource(id);
+
+                    to_phone = id;
                 }
             });
 

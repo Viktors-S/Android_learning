@@ -29,6 +29,7 @@
         app:layout_constraintTop_toTopOf="@id/tv_whats_your_name"
         android:layout_marginTop="20dp"
         android:textColor="@color/teal_200"
+        android:text="Viktors"
         android:id="@+id/et_my_name"/>
 
     <Button

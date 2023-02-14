@@ -21,6 +21,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_bigpicture"
+        app:layout_constraintBottom_toTopOf="@id/btn_change_wallpaper"
         android:layout_marginTop="20dp"
         android:id="@+id/hsv_view"
         android:orientation="horizontal">
@@ -29,6 +30,8 @@
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:id="@+id/ll_view">
+
+
         </LinearLayout>
     </HorizontalScrollView>
 
