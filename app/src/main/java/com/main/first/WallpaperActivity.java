@@ -26,7 +26,7 @@ public class WallpaperActivity extends AppCompatActivity {
     TextView text_view;
     View.OnClickListener changeWallpaperListener, openDialogListener;
 
-    int to_phone;
+    int to_phone=0;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +45,7 @@ public class WallpaperActivity extends AppCompatActivity {
         changeWallpaperListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 InputStream is = getResources().openRawResource(to_phone);
                 Bitmap pic = BitmapFactory.decodeStream(is);
 
@@ -58,23 +59,41 @@ public class WallpaperActivity extends AppCompatActivity {
             }
         };
 
-        set_wallpaper.setOnClickListener(changeWallpaperListener);
+        //set_wallpaper.setOnClickListener(changeWallpaperListener);
 
         openDialogListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(new BottomSheetDialog.OnCalculationListener() {
+
                     @Override
                     public void onCalculationClicked(String clicked) {
-                        text_view.setText(clicked);
+                        text_view.setText("TEXT CHANGED::" +clicked);
+
+                        if(clicked.equals("CORRECT")){
+                            if(to_phone==0){
+                                to_phone=getResources().getIdentifier("pic1","drawable",getPackageName());
+                            }
+                            InputStream is = getResources().openRawResource(to_phone);
+                            Bitmap pic = BitmapFactory.decodeStream(is);
+
+                            WallpaperManager myWallpaper = WallpaperManager.getInstance(getApplicationContext());
+
+                            try {
+                                myWallpaper.setBitmap(pic);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
                     }
                 });
-
+                bottomSheetDialog.setCancelable(false);
                 bottomSheetDialog.show(getSupportFragmentManager(),"TAG");
             }
         };
 
-        //set_wallpaper.setOnClickListener(openDialogListener);
+        set_wallpaper.setOnClickListener(openDialogListener);
     }
 
     private void setupImageList() {
